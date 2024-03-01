@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+{% load static %}
+
+
+{% include 'nav.html' %}
+
+
+<div class="page-header" style="background: url({% static 'assets/img/banner1.jpg' %});">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="breadcrumb-wrapper">
+                    <h2 class="product-title">OTP</h2>
+                    <ol class="breadcrumb">
+                        <li><a href="/">Home /</a></li>
+                        <li class="current">OTP</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<section class="login section-padding">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-5 col-md-12 col-xs-12">
+            <div class="bg-green-100 border border-green-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+                <p class="text-gray-700">OTP sent to <span class="text-green-500 bold italic">{{ email }}</span> .</p>
+                </div>
+                <div class="login-form login-area">
+                    <h3>OTP Now</h3>
+                    <form role="form" class="login-form" method="post">{% csrf_token %}
+                        <div class="form-group">
+                            <div class="input-icon">
+                                <i class="lni-envelope"></i>
+                                <input type="text" id="inline-email" class="form-control" name="otp" placeholder="Enter your 6 digit OTP">
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <button class="btn btn-common log-btn" type="submit">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+{% endblock %}
+

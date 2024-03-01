@@ -1,0 +1,14 @@
+asgiref
+dj-database-url
+Django
+gunicorn
+psycopg2
+pytz
+sqlparse
+whitenoise
+psycopg2-binary
+Pillow
+django-jazzmin
+social-auth-app-django
+tzdata
+pydantic

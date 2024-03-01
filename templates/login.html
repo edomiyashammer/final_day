@@ -1,0 +1,146 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+
+
+
+{% include 'nav.html' %}
+
+
+<div class="page-header" style="background: url(assets/img/banner1.jpg);">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="breadcrumb-wrapper">
+                    <h2 class="product-title">Login</h2>
+                    <ol class="breadcrumb">
+                        <li><a href="index-2.html">Home /</a></li>
+                        <li class="current">Login</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="container">
+    <div class="p-3 m-3">
+        <div class="col-lg-5 rounded mx-auto border pt-4">
+            <h3 class="alert alert-light rounded-pill" style="text-align:center">Login</h3>
+            <form method="POST" class="login-form">
+                {% csrf_token %}
+                {% if form.non_field_errors %}
+                <div class="alert alert-danger" role="alert">
+                    {{ form.non_field_errors }}
+                </div>
+                {% endif %}
+                <div class="form-group">
+                    <label for="id_username">Email</label>
+                    <div class="input-icon">
+                        <i class="lni-user"></i>
+                        {{ form.username }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="id_password">Password</label>
+                    <div class="input-icon">
+                        <i class="lni-lock"></i>
+                        {{ form.password }}
+                        <div class="input-group-append">
+                            <span class="input-group-text" id="show-password" onclick="togglePasswordVisibility()">
+                                <i class="fa fa-eye-slash" aria-hidden="true"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div id="password-strength-meter" class="mt-2"></div>
+                </div>
+
+
+                <div class="form-group mb-3">
+                    <div class="custom-control custom-checkbox">
+                        {{ form.remember_me }}
+                        <label class="custom-control-label" for="{{ form.remember_me.id_for_label }}">Keep me logged
+                            in</label>
+                    </div>
+                    <a class="forgetpassword" href="{% url 'password_reset' %}">Forgot Password?</a>
+                </div>
+                <div class="text-center">
+                    <button name="login" class="btn btn-common log-btn" id="login">Submit</button>
+                </div>
+            </form>
+            <hr>
+            <div class="mb-3 form-check">
+                <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                <label class="form-check-label d-grid gap-2" for="exampleCheck1">
+                    <a href="{% url 'register' %}">Signup</a>
+                </label>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#show-password').click(function () {
+            var passwordField = $('#password');
+            var passwordFieldType = passwordField.attr('type');
+
+            if (passwordFieldType === 'password') {
+                passwordField.attr('type', 'text');
+                $('#show-password i').removeClass('fa-eye-slash');
+                $('#show-password i').addClass('fa-eye');
+            } else {
+                passwordField.attr('type', 'password');
+                $('#show-password i').removeClass('fa-eye');
+                $('#show-password i').addClass('fa-eye-slash');
+            }
+        });
+
+        $('#password').keyup(function () {
+            var password = $(this).val();
+            var meter = $('#password-strength-meter');
+            var strength = 0;
+
+            if (password.length == 0) {
+                meter.html('');
+                return;
+            }
+
+            // Define the criteria for the strength levels
+            var minLength = 8;
+            var hasLowercase = /[a-z]/.test(password);
+            var hasUppercase = /[A-Z]/.test(password);
+            var hasNumbers = /\d/.test(password);
+            var hasSpecialChars = /[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]+/.test(password);
+
+            // Add strength points based on criteria
+            if (password.length >= minLength) {
+                strength += 1;
+            }
+            if (hasLowercase && hasUppercase) {
+                strength += 1;
+            }
+            if (hasNumbers) {
+                strength += 1;
+            }
+            if (hasSpecialChars) {
+                strength += 1;
+            }
+
+            // Display strength meter based on points
+            if (strength < 2) {
+                meter.html('<div class="progress"><div class="progress-bar bg-danger" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">Weak</div></div>');
+            } else if (strength < 4) {
+                meter.html('<div class="progress"><div class="progress-bar bg-warning" role="progressbar" style="width: 50%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">Medium</div></div>');
+            } else {
+                meter.html('<div class="progress"><div class="progress-bar bg-success" role="progressbar" style="width: 100%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">Strong</div></div>');
+            }
+        });
+    });
+</script>
+
+{% endblock %}
