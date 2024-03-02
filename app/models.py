@@ -136,7 +136,7 @@ class Post(models.Model):
     color = models.CharField(max_length=50)
     information = models.TextField(max_length=100)
     review = models.TextField()
-    price = models.DecimalField(max_digits=10, decimal_places=2)
+    price = models.DecimalField(max_digits=10, decimal_places=4)
     image1 = models.ImageField(upload_to="products/")
     image2 = models.ImageField(upload_to="products/", blank=True, null=True)
     image3 = models.ImageField(upload_to="products/", blank=True, null=True)
