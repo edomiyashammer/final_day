@@ -11,4 +11,3 @@ django-jazzmin
 social-auth-app-django
 tzdata
 pydantic
-pip install --disable-pip-version-check 
