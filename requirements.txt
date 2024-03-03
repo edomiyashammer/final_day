@@ -6,9 +6,9 @@ psycopg2
 pytz
 sqlparse
 whitenoise
-psycopg2-binary
 Pillow
 django-jazzmin
 social-auth-app-django
 tzdata
 pydantic
+pip install --disable-pip-version-check 
